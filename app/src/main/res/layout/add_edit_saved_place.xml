@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/sivMap"
+        android:layout_width="353dp"
+        android:layout_height="414dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:shapeAppearanceOverlay="@style/roundimageview">
+
+    </com.google.android.material.imageview.ShapeableImageView>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="361dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/save_button"
+        android:text="SAVE"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etLabel" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svMapSearch"
+        android:layout_width="296dp"
+        android:layout_height="49dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_search_view"
+        android:elevation="5dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="@+id/sivMap"
+        app:layout_constraintEnd_toEndOf="@+id/sivMap"
+        app:layout_constraintStart_toStartOf="@+id/sivMap"
+        app:queryHint="Search Location" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="429dp" />
+
+    <TextView
+        android:id="@+id/tvAddEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add or Edit Place"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sivMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintStart_toEndOf="@+id/ibBack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/ic_back"
+        android:contentDescription="Back"
+        app:layout_constraintBottom_toTopOf="@+id/sivMap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="360dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
+        android:text="De La Salle University"
+        android:textColor="@color/black"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sivMap" />
+
+    <ImageView
+        android:id="@+id/ivSquare"
+        android:layout_width="364dp"
+        android:layout_height="81dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:srcCompat="@drawable/bg_square" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="296dp"
+        android:layout_height="63dp"
+        android:text="2401 Taft Ave, Malate, Manila, 1004 Metro Manila"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLoc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivLoc"
+        app:layout_constraintTop_toTopOf="@+id/ivLoc"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/ivLoc"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivSquare"
+        app:layout_constraintEnd_toStartOf="@+id/tvAddress"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvName"
+        app:layout_constraintStart_toStartOf="@+id/ivSquare"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:srcCompat="@drawable/baseline_my_location_24" />
+
+    <EditText
+        android:id="@+id/etLabel"
+        android:layout_width="360dp"
+        android:layout_height="54dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/label_bg"
+        android:drawableLeft="@drawable/ic_label"
+        android:drawablePadding="10dp"
+        android:paddingLeft="10dp"
+        android:text="Add Label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSquare" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
