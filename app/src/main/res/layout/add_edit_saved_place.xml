@@ -58,7 +58,7 @@
         android:id="@+id/tvAddEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add or Edit Place"
+        android:text="Add or Edit Saved Place"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
