@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddEditSavedPlaceActivity">
+    android:layout_height="match_parent">
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -24,9 +23,8 @@
 
     <Button
         android:id="@+id/btnApply"
-        android:layout_width="355dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="357dp"
+        android:layout_height="0dp"
         android:background="@drawable/save_button"
         android:text="SAVE"
         android:textColor="@color/white"
@@ -34,7 +32,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/etLabel" />
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/svMapSearch"
@@ -54,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <TextView
         android:id="@+id/tvAddEdit"
@@ -80,8 +78,8 @@
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="329dp"
-        android:layout_height="74dp"
+        android:layout_width="330dp"
+        android:layout_height="70dp"
         android:text="De La Salle University"
         android:textColor="@color/black"
         android:textSize="28dp"
@@ -93,54 +91,52 @@
     <ImageView
         android:id="@+id/ivSquare"
         android:layout_width="0dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline23"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guideline22"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/bg_square" />
 
     <TextView
         android:id="@+id/tvAddress"
-        android:layout_width="296dp"
-        android:layout_height="63dp"
+        android:layout_width="269dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
         android:text="2401 Taft Ave, Malate, Manila, 1004 Metro Manila"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivLoc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ivLoc"
-        app:layout_constraintTop_toTopOf="@+id/ivLoc"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/ivLoc" />
 
     <ImageView
         android:id="@+id/ivLoc"
         android:layout_width="35dp"
         android:layout_height="40dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivSquare"
-        app:layout_constraintEnd_toStartOf="@+id/tvAddress"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvName"
         app:layout_constraintStart_toStartOf="@+id/ivSquare"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintTop_toTopOf="@+id/ivSquare"
+        app:layout_constraintVertical_bias="0.515"
         app:srcCompat="@drawable/baseline_my_location_24" />
 
     <EditText
         android:id="@+id/etLabel"
         android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_margin="15dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="0dp"
+
         android:background="@drawable/label_bg"
         android:drawableLeft="@drawable/ic_label"
         android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:text="Add Label"
-        app:layout_constraintEnd_toStartOf="@+id/guideline16"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/ivSquare" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline24"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -182,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.59" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
@@ -203,7 +199,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8507295" />
+        app:layout_constraintGuide_percent="0.82" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.89" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="672dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.91"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
