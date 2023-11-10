@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ibBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ibBack" />
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <TextView
+        android:id="@+id/tvSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Sound"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/ibBack"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/tvFilename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="crickets.mp3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSound"
+        app:layout_constraintEnd_toStartOf="@+id/btnChooseFile" />
+
+    <Button
+        android:id="@+id/btnChooseFile"
+        android:layout_width="105dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="10dp"
+        android:text="Select File"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFilename"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvFilename" />
+
+    <TextView
+        android:id="@+id/tvVolumeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="Volume"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/ibBack"
+        app:layout_constraintTop_toBottomOf="@+id/tvSound" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVolumeTitle" />
+
+    <Switch
+        android:id="@+id/swProximity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:switchPadding="150dp"
+        android:text="Proximity Check"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/ibBack"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <Switch
+        android:id="@+id/swVibrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:switchPadding="250dp"
+        android:text="Vibrate"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/ibBack"
+        app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
+
+    <TextView
+        android:id="@+id/tvDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="Distance"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="@+id/ibBack"
+        app:layout_constraintTop_toBottomOf="@+id/swProximity" />
+
+    <EditText
+        android:id="@+id/etDistanceVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="50"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDistance"
+        app:layout_constraintEnd_toStartOf="@+id/tvDistanceUnit"
+        app:layout_constraintTop_toTopOf="@+id/tvDistance" />
+
+    <TextView
+        android:id="@+id/tvDistanceUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="m"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/etDistanceVal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etDistanceVal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
