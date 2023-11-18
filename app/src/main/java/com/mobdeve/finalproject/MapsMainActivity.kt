@@ -2,6 +2,8 @@ package com.mobdeve.finalproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,6 +17,10 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsMainBinding
+    private lateinit var slideMenu: View
+    private lateinit var slideMenuButton: Button
+    private var slideMenuState: Int = 0 // 0 - down, 1 - up
+    private var slideMenuDistance: Float = 0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,27 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        slideMenu = binding.subMenu
+        slideMenuDistance = slideMenu.translationY
+
+        slideMenuButton = binding.button
+
+        slideMenuButton.setOnClickListener({
+            if(slideMenuState == 0){
+                slideMenu.animate().translationY(0F)
+                slideMenuButton.text = "Collapse"
+                slideMenuState = 1
+            }
+            else {
+                slideMenu.animate().translationY(slideMenuDistance)
+                slideMenuButton.text = "Expand"
+                slideMenuState = 0
+            }
+        })
+
+
+
     }
 
     /**
@@ -41,8 +68,8 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val dlsu = LatLng(14.5638, 120.9932)
+        mMap.addMarker(MarkerOptions().position(dlsu).title("DLSU"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dlsu, 15.0f))
     }
 }
