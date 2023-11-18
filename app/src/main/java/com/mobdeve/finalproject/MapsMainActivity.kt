@@ -17,8 +17,12 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsMainBinding
-    private lateinit var slideMenu: View
-    private lateinit var slideMenuButton: Button
+
+    private lateinit var slideMenuSearch: View
+    private lateinit var slideMenuSearchExpandButton: Button
+    private lateinit var slideMenuEdit: View
+    private lateinit var slideMenuEditExpandButton: Button
+
     private var slideMenuState: Int = 0 // 0 - down, 1 - up
     private var slideMenuDistance: Float = 0F
 
@@ -33,26 +37,42 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        slideMenu = binding.subMenu
-        slideMenuDistance = slideMenu.translationY
 
-        slideMenuButton = binding.button
+        // search slide menu
+        slideMenuSearch = binding.subMenuSearch
+        slideMenuDistance = slideMenuSearch.translationY
+        slideMenuSearchExpandButton = binding.buttonExpand
 
-        slideMenuButton.setOnClickListener({
+        slideMenuSearchExpandButton.setOnClickListener({
             if(slideMenuState == 0){
-                slideMenu.animate().translationY(0F)
-                slideMenuButton.text = "Collapse"
+                slideMenuSearch.animate().translationY(0F)
+                slideMenuSearchExpandButton.text = "Collapse"
                 slideMenuState = 1
             }
             else {
-                slideMenu.animate().translationY(slideMenuDistance)
-                slideMenuButton.text = "Expand"
+                slideMenuSearch.animate().translationY(slideMenuDistance)
+                slideMenuSearchExpandButton.text = "Expand"
                 slideMenuState = 0
             }
         })
 
+        // edit slide menu
+        slideMenuEdit = binding.subMenuEdit
+        slideMenuDistance = slideMenuEdit.translationY
+        slideMenuEditExpandButton = binding.buttonExpand2
 
-
+        slideMenuEditExpandButton.setOnClickListener({
+            if(slideMenuState == 0){
+                slideMenuEdit.animate().translationY(0F)
+                slideMenuEditExpandButton.text = "Collapse"
+                slideMenuState = 1
+            }
+            else {
+                slideMenuEdit.animate().translationY(slideMenuDistance)
+                slideMenuEditExpandButton.text = "Expand"
+                slideMenuState = 0
+            }
+        })
     }
 
     /**
