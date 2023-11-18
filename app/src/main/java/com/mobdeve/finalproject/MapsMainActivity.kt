@@ -38,6 +38,10 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        binding.buttonSettings.setOnClickListener({
+            var intent = Intent(applicationContext, SettingsActivity::class.java)
+            this.startActivity(intent)
+        })
 
         // search slide menu
         slideMenuSearch = binding.subMenuSearch
