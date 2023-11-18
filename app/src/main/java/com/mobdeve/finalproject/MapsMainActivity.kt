@@ -1,5 +1,6 @@
 package com.mobdeve.finalproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -56,6 +57,19 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
 
+        binding.buttonSavedPlaces.setOnClickListener({
+            var intent = Intent(applicationContext,SavedPlacesActivity::class.java)
+            this.startActivity(intent)
+        })
+
+        binding.buttonApply.setOnClickListener({
+            slideMenuSearch.animate().translationY(slideMenuDistance)
+            slideMenuSearchExpandButton.text = "Expand"
+            slideMenuState = 0
+            slideMenuSearch.visibility = View.GONE
+            slideMenuEdit.visibility = View.VISIBLE
+        })
+
         // edit slide menu
         slideMenuEdit = binding.subMenuEdit
         slideMenuDistance = slideMenuEdit.translationY
@@ -73,6 +87,23 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
                 slideMenuState = 0
             }
         })
+
+        binding.buttonEditDestination.setOnClickListener({
+            var intent = Intent(applicationContext, EditDestinationActivity::class.java)
+            this.startActivity(intent)
+        })
+
+        var status = this.intent.getStringExtra("STATUS")
+
+        if(status == "no_destination") {
+            slideMenuSearch.visibility = View.VISIBLE
+            slideMenuEdit.visibility = View.GONE
+        }
+        else if(status == "has_destination") {
+            slideMenuEdit.visibility = View.VISIBLE
+            slideMenuSearch.visibility = View.GONE
+        }
+
     }
 
     /**

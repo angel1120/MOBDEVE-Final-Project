@@ -22,7 +22,7 @@
         android:background="#FFFFFF"
         android:orientation="vertical"
         android:translationY="235dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
@@ -94,7 +94,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputSearchLocation"
@@ -119,7 +120,7 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonExpand" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

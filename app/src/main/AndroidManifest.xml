@@ -18,13 +18,8 @@
 
         <activity
             android:name=".MapsMainActivity"
-            android:exported="true">
+            android:exported="false">
             <!--android:label="@string/title_activity_maps_main"-->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SavedPlacesActivity"
@@ -36,8 +31,16 @@
             android:name=".EditDestinationActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
