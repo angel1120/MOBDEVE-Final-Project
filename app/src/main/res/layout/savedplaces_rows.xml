@@ -28,8 +28,7 @@
         android:src="@drawable/baseline_more_vert_24"
         app:layout_constraintBottom_toBottomOf="@+id/tvSavedPlace"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvSavedPlace"
-        android:onClick="showPopup"/>
+        app:layout_constraintTop_toTopOf="@+id/tvSavedPlace" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
