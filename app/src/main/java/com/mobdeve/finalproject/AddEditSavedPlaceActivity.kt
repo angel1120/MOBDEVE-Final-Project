@@ -1,19 +1,13 @@
 package com.mobdeve.finalproject
 
 import android.content.Intent
-<<<<<<< Updated upstream
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.Status
-=======
 import android.content.pm.PackageManager
-import android.os.Bundle
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
->>>>>>> Stashed changes
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,7 +18,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-<<<<<<< Updated upstream
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 
 import com.mobdeve.finalproject.databinding.AddEditSavedPlaceBinding

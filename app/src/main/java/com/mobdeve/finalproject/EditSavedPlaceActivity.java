@@ -29,9 +29,11 @@ public class EditSavedPlaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DatabaseHandler myDB = new DatabaseHandler(EditSavedPlaceActivity.this);
+                // refactor to use DatabaseHandler.java instead of DatabaseHandlerKotlin.kt
+
+                /*DatabaseHandler myDB = new DatabaseHandler(EditSavedPlaceActivity.this);
                 label = labelInput.getText().toString().trim();
-                myDB.updateData(id, label);
+                myDB.updateData(id, label);*/
 
                 Intent resultIntent = new Intent();
                 setResult(RESULT_OK, resultIntent);
