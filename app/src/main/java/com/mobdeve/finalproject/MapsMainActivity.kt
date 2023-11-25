@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -14,12 +15,14 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.mobdeve.finalproject.databinding.ActivityMapsMainBinding
+import kotlin.math.log
 
 class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -31,6 +34,8 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var slideMenuSearchExpandButton: Button
     private lateinit var slideMenuEdit: View
     private lateinit var slideMenuEditExpandButton: Button
+
+    private lateinit var marker: Marker
 
     private var slideMenuState: Int = 0 // 0 - down, 1 - up
     private var slideMenuDistance: Float = 0F
@@ -82,10 +87,10 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
 
-        binding.buttonSavedPlaces.setOnClickListener({
-            var intent = Intent(applicationContext,SavedPlacesActivity::class.java)
-            this.startActivity(intent)
-        })
+        binding.buttonSavedPlaces.setOnClickListener {
+            var intent = Intent(applicationContext, SavedPlacesActivity::class.java)
+            this.startActivityForResult(intent, 1)
+        }
 
         binding.buttonApply.setOnClickListener({
             slideMenuSearch.animate().translationY(slideMenuDistance)
@@ -131,6 +136,24 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+            1 -> {
+                //get extras from intent
+                //make latlng obj
+                //put in chosen location
+                //move cam and marker to chosen location
+                val latitude : Float = data?.getFloatExtra("latitude", 0.00f) ?: 0.00f
+                val longitude : Float = data?.getFloatExtra("longitude", 0.00f) ?: 0.00f
+                chosenDestination = LatLng(latitude.toDouble(), longitude.toDouble())
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(chosenDestination))
+                marker?.position = chosenDestination
+            }
+        }
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -145,7 +168,7 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         val dlsu = LatLng(14.5638, 120.9932)
-        val marker = mMap.addMarker(MarkerOptions().position(dlsu))
+        marker = mMap.addMarker(MarkerOptions().position(dlsu))!!
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dlsu, 15.0f))
 
         mMap.setOnMapClickListener { latLng ->
@@ -171,21 +194,6 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, autocompleteFragment)
             .commit()
-//        searchView = findViewById(R.id.searchView)
-//        searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                // Handle search submission if needed
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                if (newText.isNullOrBlank()) {
-//                    autocompleteFragment.view?.visibility = android.view.View.VISIBLE
-//                } else {
-//                    autocompleteFragment.view?.visibility = android.view.View.GONE
-//                }
-//                return true
-//            }
-//        })
+
     }
 }
