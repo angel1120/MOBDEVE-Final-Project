@@ -1,12 +1,19 @@
 package com.mobdeve.finalproject
 
 import android.content.Intent
+<<<<<<< Updated upstream
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.Status
+=======
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+>>>>>>> Stashed changes
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,7 +24,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+<<<<<<< Updated upstream
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+
 import com.mobdeve.finalproject.databinding.AddEditSavedPlaceBinding
 
 class AddEditSavedPlaceActivity: AppCompatActivity(), OnMapReadyCallback {
@@ -27,7 +36,7 @@ class AddEditSavedPlaceActivity: AppCompatActivity(), OnMapReadyCallback {
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
     private lateinit var label_input: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewBinding = AddEditSavedPlaceBinding.inflate(layoutInflater)
@@ -35,54 +44,43 @@ class AddEditSavedPlaceActivity: AppCompatActivity(), OnMapReadyCallback {
 
         label_input = findViewById(R.id.etLabel)
 
-        viewBinding.btnApply.setOnClickListener {
-            val myDB = DatabaseHandler(this@AddEditSavedPlaceActivity)
-            myDB.addSavedPlace(label_input.getText().toString())
-
-            val resultIntent = Intent()
-            setResult(RESULT_OK, resultIntent)
-            finish()
-        }
-
-        Places.initialize(applicationContext, getString(R.string.my_map_api_key))
-        autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragement)
-                as AutocompleteSupportFragment
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.ADDRESS, Place.Field.LAT_LNG))
-
-        autocompleteFragment.setOnPlaceSelectedListener(object: PlaceSelectionListener {
-
-            override fun onError(p0: Status) {
-                Toast.makeText(this@AddEditSavedPlaceActivity, "Some Error in Search", Toast.LENGTH_SHORT).show()
-
-            }
-
-            override fun onPlaceSelected(place: Place) {
-                val add = place.address
-                val id = place.id
-                val n = place.name
-                val latLng = place.latLng!!
-                val marker = addMarker(latLng)
-                marker.title = "$add"
-                marker.snippet = "$id"
-
-                val address = findViewById<TextView>(R.id.tvAddress)
-                address.text = add
-
-                zoomOnMap(latLng)
-            }
-
-
-        })
-
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.mapFragment) as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        val appInfo = applicationContext.packageManager.getApplicationInfo(
+            applicationContext.packageName,
+            PackageManager.GET_META_DATA
+        )
+        val bundle = appInfo.metaData
+        Places.initialize(applicationContext, bundle.getString("com.google.android.geo.API_KEY"))
 
-    }
 
-    private fun zoomOnMap(latLng: LatLng){
-        val newLatLngZoom = CameraUpdateFactory.newLatLngZoom(latLng, 12f) // -> amount of zoom level
-        mGoogleMap?.animateCamera(newLatLngZoom)
+        autocompleteFragment = AutocompleteSupportFragment()
+        autocompleteFragment.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG
+            )
+        )
+        autocompleteFragment.setHint("Search for a location")
+
+
+        //grab String extra from intent saying whether we're updating or adding
+        //  if adding, set map onclick listener and let user choose destination + label
+        //      if no label auto "untitled"
+        //      if no location auto dlsu
+        //      if input is complete add le stuff by calling addPlace from adapter
+        //  if updating, still set map onclick listener but marker and chosendestination var must be instantiated alr based on passed intent data
+        //  label must also be instantiated based on intent data
+        //      last value of chosendestination will be the updated thing
+        //      grab whatevers in the editText box and use that too
+        //      call updatePlace from adapter
+        //  finish()
+        // PS. latitude and longitude can both be taken from latLng object by literally just going place.latitude (where place is ur latLng obj)
+        // PPS. copy the stuff in onMapReady in MapsMainActivity to make map move when user touch a place and to give search bar functionality, should be easy to read
+
+
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -105,16 +103,4 @@ class AddEditSavedPlaceActivity: AppCompatActivity(), OnMapReadyCallback {
 
 
     }
-
-    private fun addMarker(position: LatLng): Marker {
-        //Add simple marker
-        val marker = mGoogleMap?.addMarker(
-            MarkerOptions()
-            .position(position)
-            .title("Marker")
-        )
-
-        return marker!!
-    }
-
 }
