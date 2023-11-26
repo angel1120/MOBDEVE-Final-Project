@@ -1,3 +1,5 @@
+// MIGHT DEPRECATE, USE THE JAVA ONE FOR NOW
+
 package com.mobdeve.finalproject
 
 import android.content.ContentValues
