@@ -18,6 +18,7 @@ public class PlacesDatabase {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHandler.PLACE_LABEL, place.getPlaceLabel());
         contentValues.put(DatabaseHandler.PLACE_NAME, place.getPlaceName());
         contentValues.put(DatabaseHandler.PLACE_LAT, place.getLatitude());
         contentValues.put(DatabaseHandler.PLACE_LONG, place.getLongitude());
@@ -33,6 +34,7 @@ public class PlacesDatabase {
 
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHandler.PLACE_LABEL, place.getPlaceLabel());
         contentValues.put(DatabaseHandler.PLACE_NAME, place.getPlaceName());
         contentValues.put(DatabaseHandler.PLACE_LAT, place.getLatitude());
         contentValues.put(DatabaseHandler.PLACE_LONG, place.getLongitude());
@@ -48,6 +50,7 @@ public class PlacesDatabase {
 
     }
 
+
     public ArrayList<SavedPlaceItem> getPlace() {
         ArrayList<SavedPlaceItem> result = new ArrayList<SavedPlaceItem>();
 
@@ -56,17 +59,19 @@ public class PlacesDatabase {
         Cursor cursor = db.rawQuery(query, null);
 
         int id;
+        String label;
         String name;
         float latitude;
         float longitude;
 
         while(cursor.moveToNext()){
             id = cursor.getInt(0);
-            name = cursor.getString(1);
-            latitude = cursor.getFloat(2);
-            longitude = cursor.getFloat(3);
+            label = cursor.getString(1);
+            name = cursor.getString(2);
+            latitude = cursor.getFloat(3);
+            longitude = cursor.getFloat(4);
 
-            SavedPlaceItem placeItem = new SavedPlaceItem(id, name, latitude, longitude);
+            SavedPlaceItem placeItem = new SavedPlaceItem(id, label, name, latitude, longitude);
 
             result.add(placeItem);
         }
@@ -74,4 +79,6 @@ public class PlacesDatabase {
 
         return result;
     }
+
+
 }

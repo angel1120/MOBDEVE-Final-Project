@@ -30,7 +30,7 @@
             android:name=".SavedPlacesActivity"
             android:exported="false" />
         <activity
-            android:name=".AddEditSavedPlaceActivity"
+            android:name=".AddSavedPlaceActivity"
             android:exported="false" />
         <activity
             android:name=".EditDestinationActivity"

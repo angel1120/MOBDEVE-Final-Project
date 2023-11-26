@@ -7,12 +7,14 @@ public class SavedPlaceItem {
     private float latitude;
     private float longitude;
     private String placeName;
+    private String placeLabel;
     private int placeID;
 
-    public SavedPlaceItem(int placeID, String placeName, float latitude, float longitude) {
+    public SavedPlaceItem(int placeID, String placeLabel, String placeName, float latitude, float longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.placeName = placeName;
+        this.placeLabel = placeLabel;
         this.placeID = placeID;
     }
 
@@ -32,12 +34,19 @@ public class SavedPlaceItem {
         this.longitude = longitude;
     }
 
+    public String getPlaceLabel() {
+        return placeLabel;
+    }
     public String getPlaceName() {
         return placeName;
     }
 
     public int getPlaceID() {
         return placeID;
+    }
+
+    public void setPlaceLabel(String placeLabel) {
+        this.placeLabel = placeLabel;
     }
 
     public void setPlaceName(String placeName) {
