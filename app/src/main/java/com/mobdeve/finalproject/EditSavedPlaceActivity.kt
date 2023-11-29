@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +29,6 @@ class EditSavedPlaceActivity: AppCompatActivity(),  OnMapReadyCallback{
     private lateinit var tvAddressEdit: TextView
     private lateinit var tvNameEdit: TextView
     private lateinit var btnSaveEdit: Button
-    private lateinit var btnBack: ImageButton
 
     var id: Int = 0
     lateinit var label: String
@@ -52,7 +50,6 @@ class EditSavedPlaceActivity: AppCompatActivity(),  OnMapReadyCallback{
         tvAddressEdit = findViewById(R.id.tvAddressEdit)
         tvNameEdit = findViewById(R.id.tvNameEdit)
         btnSaveEdit = findViewById(R.id.btnSaveEdit)
-        btnBack = findViewById(R.id.ibBackEdit)
 
         editLabel.setText(label)
         tvAddressEdit.text = name
@@ -63,10 +60,6 @@ class EditSavedPlaceActivity: AppCompatActivity(),  OnMapReadyCallback{
             val updateSavedPlace = SavedPlaceItem(id, editLabel.text.toString(), name, latitude.toFloat(), longitude.toFloat())
             myDB.updatePlace(updateSavedPlace)
 
-            finish()
-        }
-
-       btnBack.setOnClickListener{
             finish()
         }
 

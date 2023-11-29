@@ -56,16 +56,15 @@
         android:id="@+id/tvAddEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Saved Place"
+        android:text="Add or Edit Saved Place"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/mapFragment"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintStart_toEndOf="@+id/ibBackAdd"
+        app:layout_constraintStart_toEndOf="@+id/ibBack"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <ImageButton
-        android:id="@+id/ibBackAdd"
+        android:id="@+id/ibBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/ic_back"
