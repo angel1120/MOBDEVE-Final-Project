@@ -97,6 +97,10 @@ class SettingsActivity: AppCompatActivity() {
 
         })
 
+        viewBinding.ibBackSettings.setOnClickListener{
+            finish()
+        }
+
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 // Handle progress change

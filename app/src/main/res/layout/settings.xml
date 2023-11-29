@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="@+id/ibBack" />
 
     <ImageButton
-        android:id="@+id/ibBack"
+        android:id="@+id/ibBackSettings"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
@@ -114,7 +114,7 @@
         android:layout_marginTop="35dp"
         android:text="Distance"
         android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="@+id/ibBack"
+        app:layout_constraintStart_toStartOf="@+id/ibBackSettings"
         app:layout_constraintTop_toBottomOf="@+id/swProximity" />
 
     <EditText

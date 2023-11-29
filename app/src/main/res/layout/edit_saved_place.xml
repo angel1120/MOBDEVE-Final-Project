@@ -59,6 +59,7 @@
         android:text="Edit Saved Place"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mapFragmentEdit"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toEndOf="@+id/ibBackEdit"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />

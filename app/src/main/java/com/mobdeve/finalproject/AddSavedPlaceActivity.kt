@@ -42,6 +42,10 @@ class AddSavedPlaceActivity: AppCompatActivity(), OnMapReadyCallback {
             finish()
         }
 
+        viewBinding.ibBackAdd.setOnClickListener{
+            finish()
+        }
+
         val appInfo = applicationContext.packageManager.getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
         val bundle = appInfo.metaData
         Places.initialize(applicationContext, bundle.getString("com.google.android.geo.API_KEY"))
