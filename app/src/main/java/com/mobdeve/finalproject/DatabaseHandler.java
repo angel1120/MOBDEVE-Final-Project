@@ -2,7 +2,6 @@ package com.mobdeve.finalproject;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -11,11 +10,10 @@ import androidx.annotation.Nullable;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "PlaceDatabase.db";
+    private static final String DATABASE_NAME = "PlaceDatabase";
     public static final String PLACE_TABLE = "place_table";
 
     public static final String PLACE_ID = "id";
-    public static final String PLACE_LABEL = "place_label";
     public static final String PLACE_NAME = "place_name";
     public static final String PLACE_LAT = "place_lat";
     public static final String PLACE_LONG = "place_long";
@@ -30,7 +28,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_PLACE_TABLE = "CREATE TABLE " + PLACE_TABLE +
                 " (" + PLACE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PLACE_LABEL + " TEXT, " +
                 PLACE_NAME + " TEXT, " +
                 PLACE_LAT + " REAL, " +
                 PLACE_LONG + " REAL);";
@@ -42,25 +39,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues cv3= new ContentValues();
         ContentValues cv4= new ContentValues();
 
-        cv1.put(PLACE_LABEL, "Vito Cruz");
         cv1.put(PLACE_NAME, "Vito Cruz");
         cv1.put(PLACE_LAT, 14.5634);
         cv1.put(PLACE_LONG, 120.9948);
         db.insert(PLACE_TABLE, null, cv1);
 
-        cv2.put(PLACE_LABEL, "Doroteo Jose");
         cv2.put(PLACE_NAME, "Doroteo Jose");
         cv2.put(PLACE_LAT, 14.6056);
         cv2.put(PLACE_LONG, 120.9820);
         db.insert(PLACE_TABLE, null, cv2);
 
-        cv3.put(PLACE_LABEL, "Tayuman");
         cv3.put(PLACE_NAME, "Tayuman");
         cv3.put(PLACE_LAT, 14.6166);
         cv3.put(PLACE_LONG, 120.9827);
         db.insert(PLACE_TABLE, null, cv3);
 
-        cv4.put(PLACE_LABEL, "Balintawak");
         cv4.put(PLACE_NAME, "Balintawak");
         cv4.put(PLACE_LAT, 14.6577);
         cv4.put(PLACE_LONG, 121.0040);
@@ -72,6 +65,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PLACE_TABLE);
         onCreate(sqLiteDatabase);
     }
-
-
 }

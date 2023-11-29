@@ -34,7 +34,7 @@ class SavedPlacesActivity : AppCompatActivity(), savedPlaces_Adapter.OnItemClick
         setContentView(viewBinding.root)
 
         viewBinding.fabAddPlace.setOnClickListener({
-            var intent = Intent(this, AddSavedPlaceActivity::class.java)
+            var intent = Intent(applicationContext, AddEditSavedPlaceActivity::class.java)
             this.startActivity(intent)
         })
 
@@ -44,7 +44,6 @@ class SavedPlacesActivity : AppCompatActivity(), savedPlaces_Adapter.OnItemClick
         val placesDatabase: PlacesDatabase = PlacesDatabase(this)
         val adapter = savedPlaces_Adapter(placesDatabase.place, this, this)
         recyclerView.adapter = adapter
-
     }
 
 }

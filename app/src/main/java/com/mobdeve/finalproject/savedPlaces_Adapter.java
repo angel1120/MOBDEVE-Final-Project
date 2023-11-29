@@ -1,14 +1,19 @@
 package com.mobdeve.finalproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mobdeve.finalproject.databinding.SavedplacesRowsBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class savedPlaces_Adapter extends RecyclerView.Adapter<savedPlaces_Adapter.placesViewHolder> {
 
@@ -111,29 +117,16 @@ public class savedPlaces_Adapter extends RecyclerView.Adapter<savedPlaces_Adapte
             PopupMenu popup = new PopupMenu(itemView.getContext(), itemView, Gravity.END);
             popup.inflate(R.menu.actions);
 
-            int position = getAdapterPosition();
-
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     if(menuItem.getItemId() == R.id.editOption){
-                        Intent intent = new Intent(activity, EditSavedPlaceActivity.class);
-
-                        intent.putExtra("id", String.valueOf(places.get(position).getPlaceID()));
-                        intent.putExtra("label", String.valueOf(places.get(position).getPlaceLabel()));
-                        intent.putExtra("name", String.valueOf(places.get(position).getPlaceName()));
-                        intent.putExtra("latitude", String.valueOf(places.get(position).getLatitude()));
-                        intent.putExtra("longitude", String.valueOf(places.get(position).getLongitude()));
-
-                    //    intent.putExtra("id", String.valueOf(places.get(position)));
-                    //    intent.putExtra("label", String.valueOf(label.get(position)));
-
-                        updatePlace(position, places.get(position));
-
+                        Intent intent = new Intent(activity, AddEditSavedPlaceActivity.class);
                         activity.startActivity(intent);
                         return true;
                     }
                     else if(menuItem.getItemId() == R.id.deleteOption){
+                        int position = getAdapterPosition();
                         removePlace(position);
                         return true;
                     }
@@ -148,7 +141,7 @@ public class savedPlaces_Adapter extends RecyclerView.Adapter<savedPlaces_Adapte
             this.myPosition = position;
             this.item = place;
 
-            this.itemBinding.tvSavedPlace.setText(this.item.getPlaceLabel());
+            this.itemBinding.tvSavedPlace.setText(this.item.getPlaceName());
         }
 
     }

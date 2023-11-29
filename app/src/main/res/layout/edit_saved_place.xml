@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="@+id/mapFragmentEdit">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/autocomplete_fragementEdit"
+            android:id="@+id/autocomplete_fragement"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:background="@drawable/bg_search_view"
             android:layout_width="match_parent"
