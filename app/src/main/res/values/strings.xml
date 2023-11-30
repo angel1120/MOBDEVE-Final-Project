@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Gising Na!</string>
     <string name="title_activity_maps_main">MapsMainActivity</string>
+    <string name="SHARED_PREFS_KEY">com.mobdeve.finalproject.sharedprefs</string>
     <string name="SEEK_BAR_PROGRESS_KEY">seekBarProgress</string>
     <string name="AUDIO_NAME_KEY">audioName</string>
     <string name="AUDIO_URI_KEY">audioUri</string>

@@ -29,14 +29,6 @@ class SettingsActivity: AppCompatActivity() {
 
     val PICK_FILE = 99
 
-    val TAG = "com.mobdeve.finalproject.sharedprefs"
-    private val SEEK_BAR_PROGRESS_KEY = "seekBarProgress"
-    private val AUDIO_NAME_KEY = "audioName"
-    private val AUDIO_URI_KEY = "audioUri"
-    private val VIBRATION_KEY = "vibrationSwitch"
-    private val DISTANCE_VAL_KEY = "distanceValue"
-    private val PROXIMITY_KEY = "proximitySwitch"
-
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var viewBinding: SettingsBinding
@@ -49,7 +41,7 @@ class SettingsActivity: AppCompatActivity() {
 
         audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
 
-        sharedPreferences = getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(R.string.SHARED_PREFS_KEY.toString(), Context.MODE_PRIVATE)
 
         val maxVolume: Int = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         val currentVolume: Int = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
@@ -58,33 +50,33 @@ class SettingsActivity: AppCompatActivity() {
         seekBar.max = maxVolume
         seekBar.progress = currentVolume
 
-        val savedProgress = sharedPreferences.getInt(SEEK_BAR_PROGRESS_KEY, 0)
+        val savedProgress = sharedPreferences.getInt(R.string.SEEK_BAR_PROGRESS_KEY.toString(), 0)
         seekBar.progress = savedProgress
 
-        val savedAudio = sharedPreferences.getString(AUDIO_NAME_KEY, "0")
+        val savedAudio = sharedPreferences.getString(R.string.AUDIO_NAME_KEY.toString(), "0")
         viewBinding.tvFilename.text = savedAudio
 
-        val savedDistance = sharedPreferences.getString(DISTANCE_VAL_KEY, "50")
+        val savedDistance = sharedPreferences.getString(R.string.DISTANCE_VAL_KEY.toString(), "50")
         viewBinding.etDistanceVal.setText(savedDistance)
 
         vibration = findViewById(R.id.swVibrate)
-        val savedVibration = sharedPreferences.getBoolean(VIBRATION_KEY, false)
+        val savedVibration = sharedPreferences.getBoolean(R.string.VIBRATION_KEY.toString(), false)
         vibration.isChecked = savedVibration
 
         proximity = findViewById(R.id.swProximity)
-        val savedProximity = sharedPreferences.getBoolean(PROXIMITY_KEY, false)
+        val savedProximity = sharedPreferences.getBoolean(R.string.PROXIMITY_KEY.toString(), false)
         proximity.isChecked = savedProximity
 
         val editor = sharedPreferences.edit()
 
         vibration.setOnCheckedChangeListener { _, isChecked ->
-            editor.putBoolean(VIBRATION_KEY, isChecked)
+            editor.putBoolean(R.string.VIBRATION_KEY.toString(), isChecked)
             editor.apply()
 
         }
 
         proximity.setOnCheckedChangeListener { _, isChecked ->
-            editor.putBoolean(PROXIMITY_KEY, isChecked)
+            editor.putBoolean(R.string.PROXIMITY_KEY.toString(), isChecked)
             editor.apply()
 
         }
@@ -102,7 +94,7 @@ class SettingsActivity: AppCompatActivity() {
                 // Handle progress change
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
 
-                editor.putInt(SEEK_BAR_PROGRESS_KEY, progress)
+                editor.putInt(R.string.SEEK_BAR_PROGRESS_KEY.toString(), progress)
                 editor.apply()
 
             }
@@ -153,7 +145,7 @@ class SettingsActivity: AppCompatActivity() {
     fun createMediaPlayer(uri: Uri?) {
         try {
             val editor = sharedPreferences.edit()
-            editor.putString(AUDIO_URI_KEY, uri.toString())
+            editor.putString(R.string.AUDIO_URI_KEY.toString(), uri.toString())
             editor.apply()
             viewBinding.tvFilename.setText(getNameFromUri(uri))
 
@@ -180,7 +172,7 @@ class SettingsActivity: AppCompatActivity() {
                         cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME))
 
                     val editor = sharedPreferences.edit()
-                    editor.putString(AUDIO_NAME_KEY, fileName)
+                    editor.putString(R.string.AUDIO_NAME_KEY.toString(), fileName)
                     editor.apply()
                 }
             } finally {
