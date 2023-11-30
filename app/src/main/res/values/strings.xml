@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Gising Na!</string>
     <string name="title_activity_maps_main">MapsMainActivity</string>
+    <string name="SEEK_BAR_PROGRESS_KEY">seekBarProgress</string>
+    <string name="AUDIO_NAME_KEY">audioName</string>
+    <string name="AUDIO_URI_KEY">audioUri</string>
+    <string name="VIBRATION_KEY">vibrationSwitch</string>
+    <string name="DISTANCE_VAL_KEY">distanceValue</string>
+    <string name="PROXIMITY_KEY">proximitySwitch</string>
 </resources>
