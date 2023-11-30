@@ -1,15 +1,21 @@
 package com.mobdeve.finalproject
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.location.Location
+import android.location.LocationRequest
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.SearchView
-
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -20,20 +26,19 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.mobdeve.finalproject.databinding.ActivityMapsMainBinding
-import kotlin.math.log
 
 class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsMainBinding
-//    private lateinit var searchView: SearchView
 
     private lateinit var slideMenuSearch: View
     private lateinit var slideMenuSearchExpandButton: Button
     private lateinit var slideMenuEdit: View
     private lateinit var slideMenuEditExpandButton: Button
+    private lateinit var destinationView: TextView
+    private lateinit var distanceView: TextView
 
     private lateinit var marker: Marker
 
@@ -42,6 +47,11 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var chosenDestination: LatLng
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
+
+    private var hasTrip: Boolean = true
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var locationRequest: LocationRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +74,29 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
         autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
         autocompleteFragment.setHint("Search for a location")
 
+        /*
+        // Set up location updater
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        locationCallback = object: LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations){
+
+                }
+            }
+
+        }*/
+
+        // UI stuff
+
         binding.buttonSettings.setOnClickListener({
             var intent = Intent(applicationContext, SettingsActivity::class.java)
             this.startActivity(intent)
         })
+
+        destinationView = binding.textViewDestination
+        distanceView = binding.textViewETA
 
         // search slide menu
         slideMenuSearch = binding.subMenuSearch
@@ -123,18 +152,53 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
             this.startActivity(intent)
         })
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         var status = this.intent.getStringExtra("STATUS")
 
         if(status == "no_destination") {
             slideMenuSearch.visibility = View.VISIBLE
             slideMenuEdit.visibility = View.GONE
+            hasTrip = false
         }
         else if(status == "has_destination") {
             slideMenuEdit.visibility = View.VISIBLE
             slideMenuSearch.visibility = View.GONE
+            hasTrip = true
         }
 
+        // for testing
+        hasTrip = true
+        slideMenuEdit.visibility = View.VISIBLE
+        slideMenuSearch.visibility = View.GONE
+        slideMenuEdit.translationY = 0F
+        slideMenuState = 1
+
+        destinationView.setText("DLSU")
+        val startPoint = Location("location1")
+        startPoint.latitude = 14.5638
+        startPoint.longitude = 120.9932
+        val endPoint = Location("location2")
+        endPoint.latitude = 14.554745
+        endPoint.longitude = 120.997897
+        val distanceB = endPoint.distanceTo(startPoint)
+        distanceView.setText("Current distance: ${distanceB}")
+
     }
+    /*
+    @RequiresApi(Build.VERSION_CODES.S)
+    override fun onResume() {
+        super.onResume()
+        startLocationUpdates()
+    }
+
+    override fun onPause(){
+        super.onPause()
+        stopLocationUpdates()
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -166,12 +230,13 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
+        // Add a marker in DLSU and move the camera
         val dlsu = LatLng(14.5638, 120.9932)
-        //marker = mMap.addMarker(MarkerOptions().position(dlsu))!!
+        marker = mMap.addMarker(MarkerOptions().position(dlsu))!!
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dlsu, 15.0f))
 
         mMap.setOnMapClickListener { latLng ->
+            Log.d("STATE", "OnMapClickListener fired! latlng: ${latLng}")
             chosenDestination = latLng
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
             marker?.position = latLng
@@ -180,6 +245,7 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
         autocompleteFragment.setOnPlaceSelectedListener(object :
             com.google.android.libraries.places.widget.listener.PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
+                Log.d("STATE", "OnPlaceSelected fired! place.latlng: ${place.latLng}")
                 // Handle the selected place
                 val location = place.latLng
                 marker?.position = location
@@ -195,5 +261,66 @@ class MapsMainActivity : AppCompatActivity(), OnMapReadyCallback {
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, autocompleteFragment)
             .commit()
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun requestLocationPermissions(){
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    // Precise location access granted.
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    Log.d("PERMISSIONS", "ONLY COARSE LOCATION PERMISSION GRANTED")
+                    this.finish()
+                    System.exit(0)
+                } else -> {
+                Log.d("PERMISSIONS", "NO PERMISSION GRANTED")
+                this.finish()
+                System.exit(0)
+            }
+            }
+        }
+
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION))
+    }
+
+    /*
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun startLocationUpdates(){
+
+        // Check if location permissions is granted
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // if not, ask for location permissions
+
+        }
+
+        locationRequest = LocationRequest.Builder(1000)
+            .setQuality(LocationRequest.QUALITY_HIGH_ACCURACY)
+            .build()
+
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper())
+    }
+
+    private fun stopLocationUpdates(){
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+    }*/
+
+    private fun onApproachDestination(){
+        
     }
 }

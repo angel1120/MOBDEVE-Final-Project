@@ -23,7 +23,9 @@
         android:orientation="vertical"
         android:translationY="235dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/buttonExpand2"
@@ -91,11 +93,12 @@
         android:background="#FFFFFF"
         android:orientation="vertical"
         android:translationY="235dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone">
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -104,8 +107,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="93dp"
-            app:layout_constraintTop_toBottomOf="@id/textViewSearchLabel">
+            app:layout_constraintTop_toBottomOf="@id/textViewSearchLabel"
+            tools:layout_editor_absoluteY="93dp">
 
         </FrameLayout>
 
