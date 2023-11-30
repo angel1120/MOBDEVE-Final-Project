@@ -30,6 +30,12 @@ class SettingsActivity: AppCompatActivity() {
     val PICK_FILE = 99
 
     val TAG = "com.mobdeve.finalproject.sharedprefs"
+    private val SEEK_BAR_PROGRESS_KEY = "seekBarProgress"
+    private val AUDIO_NAME_KEY = "audioName"
+    private val AUDIO_URI_KEY = "audioUri"
+    private val VIBRATION_KEY = "vibrationSwitch"
+    private val DISTANCE_VAL_KEY = "distanceValue"
+    private val PROXIMITY_KEY = "proximitySwitch"
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -52,33 +58,33 @@ class SettingsActivity: AppCompatActivity() {
         seekBar.max = maxVolume
         seekBar.progress = currentVolume
 
-        val savedProgress = sharedPreferences.getInt(R.string.SEEK_BAR_PROGRESS_KEY.toString(), 0)
+        val savedProgress = sharedPreferences.getInt(SEEK_BAR_PROGRESS_KEY, 0)
         seekBar.progress = savedProgress
 
-        val savedAudio = sharedPreferences.getString(R.string.AUDIO_NAME_KEY.toString(), "0")
+        val savedAudio = sharedPreferences.getString(AUDIO_NAME_KEY, "0")
         viewBinding.tvFilename.text = savedAudio
 
-        val savedDistance = sharedPreferences.getString(R.string.DISTANCE_VAL_KEY.toString(), "50")
+        val savedDistance = sharedPreferences.getString(DISTANCE_VAL_KEY, "50")
         viewBinding.etDistanceVal.setText(savedDistance)
 
         vibration = findViewById(R.id.swVibrate)
-        val savedVibration = sharedPreferences.getBoolean(R.string.VIBRATION_KEY.toString(), false)
+        val savedVibration = sharedPreferences.getBoolean(VIBRATION_KEY, false)
         vibration.isChecked = savedVibration
 
         proximity = findViewById(R.id.swProximity)
-        val savedProximity = sharedPreferences.getBoolean(R.string.PROXIMITY_KEY.toString(), false)
+        val savedProximity = sharedPreferences.getBoolean(PROXIMITY_KEY, false)
         proximity.isChecked = savedProximity
 
         val editor = sharedPreferences.edit()
 
         vibration.setOnCheckedChangeListener { _, isChecked ->
-            editor.putBoolean(R.string.VIBRATION_KEY.toString(), isChecked)
+            editor.putBoolean(VIBRATION_KEY, isChecked)
             editor.apply()
 
         }
 
         proximity.setOnCheckedChangeListener { _, isChecked ->
-            editor.putBoolean(R.string.PROXIMITY_KEY.toString(), isChecked)
+            editor.putBoolean(PROXIMITY_KEY, isChecked)
             editor.apply()
 
         }
@@ -96,7 +102,7 @@ class SettingsActivity: AppCompatActivity() {
                 // Handle progress change
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
 
-                editor.putInt(R.string.SEEK_BAR_PROGRESS_KEY.toString(), progress)
+                editor.putInt(SEEK_BAR_PROGRESS_KEY, progress)
                 editor.apply()
 
             }
@@ -111,13 +117,13 @@ class SettingsActivity: AppCompatActivity() {
         })
 
     }
-
+    /* Unnecessary?
     override fun onBackPressed() {
         super.onBackPressed()
 
         // Create the intent
         val intent = Intent(this, StartActivity::class.java)
-        intent.putExtra("EXTRA_AUDIO", sharedPreferences.getString(R.string.AUDIO_URI_KEY.toString(), "0"))
+        intent.putExtra("EXTRA_AUDIO", sharedPreferences.getString(AUDIO_URI_KEY, "0"))
 
         var distanceValue = viewBinding.etDistanceVal.text.toString()
         intent.putExtra("EXTRA_DISTANCE", distanceValue)
@@ -126,12 +132,11 @@ class SettingsActivity: AppCompatActivity() {
         intent.putExtra("EXTRA_PROXIMITY", proximity.isChecked)
 
         val editor = sharedPreferences.edit()
-        editor.putString(R.string.DISTANCE_VAL_KEY.toString(), distanceValue)
+        editor.putString(DISTANCE_VAL_KEY, distanceValue)
         editor.apply()
 
         startActivity(intent)
-
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -148,7 +153,7 @@ class SettingsActivity: AppCompatActivity() {
     fun createMediaPlayer(uri: Uri?) {
         try {
             val editor = sharedPreferences.edit()
-            editor.putString(R.string.AUDIO_URI_KEY.toString(), uri.toString())
+            editor.putString(AUDIO_URI_KEY, uri.toString())
             editor.apply()
             viewBinding.tvFilename.setText(getNameFromUri(uri))
 
@@ -175,7 +180,7 @@ class SettingsActivity: AppCompatActivity() {
                         cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME))
 
                     val editor = sharedPreferences.edit()
-                    editor.putString(R.string.AUDIO_NAME_KEY.toString(), fileName)
+                    editor.putString(AUDIO_NAME_KEY, fileName)
                     editor.apply()
                 }
             } finally {
